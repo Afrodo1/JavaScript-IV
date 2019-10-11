@@ -24,6 +24,16 @@ class Instructor extends Person {
     grade(Student, subject){
         return `${Student.name} recieves a perfect score on ${subject}.`;
     }
+    adjustGrade(Student) {
+        let points = Math.round(Math.random() * 50);
+        if (Student.grade >= 80) {
+            Student.grade -= points;
+            return `${points} points are subtracted from ${Student.name}'s grade.  ${Student.name}'s current grade is ${Student.grade}`;
+        } else {
+            Student.grade += points;
+            return `${points} points are added to ${Student.name}'s grade.  ${Student.name}'s current grade is ${Student.grade}`;
+        }
+    }
 }
 
 class Student extends Person {
@@ -32,6 +42,7 @@ class Student extends Person {
         this.previousBackground = stuAttr.previousBackground;
         this.className = stuAttr.className;
         this.favSubjects = stuAttr.favSubjects;
+        this.grade = stuAttr.grade;
     }
     listSubjects(){
         return console.log(this.favSubjects);
@@ -41,6 +52,13 @@ class Student extends Person {
     }
     sprintChallenge(subject){
         return `${this.name} has begun sprint challnege on ${subject}`;
+    }
+    graduate() {
+        if (this.grade >= 70) {
+            return `${this.name} has graduated with a final grade of ${this.grade}!`;
+        } else {
+             return `You Failed!!!`;
+        }
     }
 }
 
@@ -56,6 +74,7 @@ class tL extends Instructor{
     debugsCode(Student, subject){
         return `${this.name} dubugs ${Student.name}'s code on ${subject}`;
     }
+
 }
 
 
@@ -78,7 +97,7 @@ const Dominic = new Student({
     previousBackground: 'Dabbled in Java',
     className: 'WEBpt11',
     favSubjects: ['JavaScript' , 'CSS'],
-
+    grade: Math.round(Math.round(Math.random() * 100))
 })
 
 const Samir = new tL({
@@ -97,3 +116,5 @@ console.log(Dominic.PRAssignment('JavaScript IV'));
 console.log(Dominic.sprintChallenge('JavaScript IV'));
 console.log(Samir.standUp('webpt11_samir'));
 console.log(Samir.debugsCode(Dominic, 'JavaScript IV'));
+console.log(Samir.adjustGrade(Dominic));
+console.log(Dominic.graduate());
